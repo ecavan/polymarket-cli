@@ -33,14 +33,13 @@ fn event_to_row(e: &Event) -> EventRow {
     let market_count = e
         .markets
         .as_ref()
-        .map(|m| m.len().to_string())
-        .unwrap_or_else(|| "—".into());
+        .map_or_else(|| "—".into(), |m| m.len().to_string());
 
     EventRow {
         title: truncate(title, 60),
         market_count,
-        volume: e.volume.map(format_decimal).unwrap_or_else(|| "—".into()),
-        liquidity: e.liquidity.map(format_decimal).unwrap_or_else(|| "—".into()),
+        volume: e.volume.map_or_else(|| "—".into(), format_decimal),
+        liquidity: e.liquidity.map_or_else(|| "—".into(), format_decimal),
         status: event_status(e).into(),
     }
 }

@@ -35,14 +35,13 @@ fn market_to_row(m: &Market) -> MarketRow {
         .outcome_prices
         .as_ref()
         .and_then(|p| p.first())
-        .map(|p| format!("{:.2}¢", p * Decimal::from(100)))
-        .unwrap_or_else(|| "—".into());
+        .map_or_else(|| "—".into(), |p| format!("{:.2}¢", p * Decimal::from(100)));
 
     MarketRow {
         question: truncate(question, 60),
         price_yes,
-        volume: m.volume_num.map(format_decimal).unwrap_or_else(|| "—".into()),
-        liquidity: m.liquidity_num.map(format_decimal).unwrap_or_else(|| "—".into()),
+        volume: m.volume_num.map_or_else(|| "—".into(), format_decimal),
+        liquidity: m.liquidity_num.map_or_else(|| "—".into(), format_decimal),
         status: market_status(m).into(),
     }
 }

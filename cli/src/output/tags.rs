@@ -21,7 +21,7 @@ fn tag_to_row(t: &Tag) -> TagRow {
         id: truncate(&t.id, 20),
         label: t.label.as_deref().unwrap_or("—").into(),
         slug: t.slug.as_deref().unwrap_or("—").into(),
-        carousel: t.is_carousel.map(|v| v.to_string()).unwrap_or_else(|| "—".into()),
+        carousel: t.is_carousel.map_or_else(|| "—".into(), |v| v.to_string()),
     }
 }
 
@@ -52,7 +52,7 @@ fn related_tag_to_row(r: &RelatedTag) -> RelatedTagRow {
         id: truncate(&r.id, 20),
         tag_id: r.tag_id.as_deref().unwrap_or("—").into(),
         related_tag_id: r.related_tag_id.as_deref().unwrap_or("—").into(),
-        rank: r.rank.map(|v| v.to_string()).unwrap_or_else(|| "—".into()),
+        rank: r.rank.map_or_else(|| "—".into(), |v| v.to_string()),
     }
 }
 

@@ -35,7 +35,7 @@ pub enum EventsCommand {
         #[arg(long)]
         offset: Option<i32>,
 
-        /// Sort field (e.g. volume, liquidity, created_at)
+        /// Sort field (e.g. volume, liquidity, `created_at`)
         #[arg(long)]
         order: Option<String>,
 

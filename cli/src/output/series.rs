@@ -32,8 +32,8 @@ fn series_to_row(s: &Series) -> SeriesRow {
     SeriesRow {
         title: truncate(s.title.as_deref().unwrap_or("—"), 50),
         series_type: s.series_type.as_deref().unwrap_or("—").into(),
-        volume: s.volume.map(format_decimal).unwrap_or_else(|| "—".into()),
-        liquidity: s.liquidity.map(format_decimal).unwrap_or_else(|| "—".into()),
+        volume: s.volume.map_or_else(|| "—".into(), format_decimal),
+        liquidity: s.liquidity.map_or_else(|| "—".into(), format_decimal),
         status: series_status(s).into(),
     }
 }

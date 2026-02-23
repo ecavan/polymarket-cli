@@ -1,3 +1,4 @@
+pub mod bridge;
 pub mod comments;
 pub mod data;
 pub mod events;
@@ -36,7 +37,7 @@ pub fn format_decimal(n: Decimal) -> String {
     } else if f >= 1_000.0 {
         format!("${:.1}K", f / 1_000.0)
     } else {
-        format!("${:.2}", f)
+        format!("${f:.2}")
     }
 }
 

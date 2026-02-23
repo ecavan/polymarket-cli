@@ -1,3 +1,5 @@
+#![allow(clippy::items_after_statements)]
+
 mod commands;
 mod output;
 
@@ -5,7 +7,7 @@ use std::process::ExitCode;
 
 use clap::{Parser, Subcommand};
 use output::OutputFormat;
-use polymarket_client_sdk::{data, gamma};
+use polymarket_client_sdk::{bridge, data, gamma};
 
 #[derive(Parser)]
 #[command(name = "polymarket", about = "Polymarket CLI", version)]
@@ -36,6 +38,8 @@ enum Commands {
     Sports(commands::sports::SportsArgs),
     /// Query on-chain data (positions, trades, leaderboards)
     Data(commands::data::DataArgs),
+    /// Bridge assets from other chains to Polymarket
+    Bridge(commands::bridge::BridgeArgs),
     /// Check API health status
     Status,
 }
@@ -63,6 +67,7 @@ async fn main() -> ExitCode {
 async fn run(cli: Cli) -> anyhow::Result<()> {
     let gamma_client = gamma::Client::default();
     let data_client = data::Client::default();
+    let bridge_client = bridge::Client::default();
 
     match cli.command {
         Commands::Markets(args) => commands::markets::execute(&gamma_client, args, cli.output).await,
@@ -73,6 +78,7 @@ async fn run(cli: Cli) -> anyhow::Result<()> {
         Commands::Profiles(args) => commands::profiles::execute(&gamma_client, args, cli.output).await,
         Commands::Sports(args) => commands::sports::execute(&gamma_client, args, cli.output).await,
         Commands::Data(args) => commands::data::execute(&data_client, args, cli.output).await,
+        Commands::Bridge(args) => commands::bridge::execute(&bridge_client, args, cli.output).await,
         Commands::Status => {
             let status = gamma_client.status().await?;
             match cli.output {

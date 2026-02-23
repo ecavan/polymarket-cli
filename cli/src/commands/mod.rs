@@ -1,3 +1,4 @@
+pub mod bridge;
 pub mod comments;
 pub mod data;
 pub mod events;

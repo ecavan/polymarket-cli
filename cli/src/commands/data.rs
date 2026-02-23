@@ -196,6 +196,7 @@ fn parse_address(s: &str) -> Result<Address> {
         .map_err(|_| anyhow::anyhow!("Invalid address: must be a 0x-prefixed hex address"))
 }
 
+#[allow(clippy::too_many_lines)]
 pub async fn execute(
     client: &data::Client,
     args: DataArgs,
