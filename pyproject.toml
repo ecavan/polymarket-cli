@@ -3,7 +3,7 @@ requires = ["maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
 [project]
-name = "polymarket-cli"
+name = "polymarket-cli-sports-skills"
 dynamic = ["version"]
 description = "CLI for Polymarket — browse markets, trade, and manage positions"
 requires-python = ">=3.9"

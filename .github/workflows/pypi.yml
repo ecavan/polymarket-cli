@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/polymarket-cli
+      url: https://pypi.org/p/polymarket-cli-sports-skills
     permissions:
       id-token: write
     steps:
